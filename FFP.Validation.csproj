@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace></RootNamespace>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ValidationRules_Tests\**" />
+    <EmbeddedResource Remove="ValidationRules_Tests\**" />
+    <None Remove="ValidationRules_Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="MultiPropertyValidationRule.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="BaseDuplicateDBFieldCheckerRules.vb" />
+    <None Remove="BasicDatabaseRuleDictionary.vb" />
+    <None Remove="BasicRuleDictionary.vb" />
+    <None Remove="BrokenRule.vb" />
+    <None Remove="BrokenRules.vb" />
+    <None Remove="BusinessRules.vb" />
+    <None Remove="ClientSideRule.vb" />
+    <None Remove="CommonRuleHandlers.vb" />
+    <None Remove="CommonRules.vb" />
+    <None Remove="MultiPropertyRule.vb" />
+    <None Remove="MultiPropertyRuleOutput.vb" />
+    <None Remove="Rule.vb" />
+    <None Remove="RuleExtensions.vb" />
+    <None Remove="RuleGroupAttribute.vb" />
+    <None Remove="RuleHandler.vb" />
+    <None Remove="RuleOutput.vb" />
+    <None Remove="SimpleRuleList.vb" />
+    <None Remove="TypeRule.vb" />
+    <None Remove="TypeRuleBase.vb" />
+    <None Remove="TypeRuleDeleteBase.vb" />
+    <None Remove="TypeRulesBase.vb" />
+    <None Remove="ValueRangeRuleHelper.vb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Import Include="FFP.BO.Interfaces" />
+    <Import Include="FFP.CoreUtilities" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FFP.CoreUtilities\FFP.CoreUtilities.vbproj" />
+    <ProjectReference Include="..\FFP.Interfaces\FFP.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
