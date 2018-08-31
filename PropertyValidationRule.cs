@@ -84,7 +84,7 @@ namespace FFP.Validations
             return (RuleName + PropertyName).GetHashCode();
         }
 
-        public bool IsBroken(IValidatedItem itm)
+        public bool IsBroken(object itm)
         {
             return InvokedValidationBroken(itm);
         }

@@ -1,7 +1,6 @@
 using FFP.Validations;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Xunit;
 
 namespace ValidationRules_Tests
@@ -11,7 +10,7 @@ namespace ValidationRules_Tests
         [Fact]
         public void ValidationRule_Ctor()
         {
-            ValidationRule<Tested1> tObj = new ValidationRule<Tested1>("TestName", "TestDesc");
+            ValidatedItemRule tObj = new ValidatedItemRule("TestName", "TestDesc");
             Assert.Equal("TestName", tObj.RuleName);
             Assert.Equal("TestDesc", tObj.Description);
         }
@@ -92,9 +91,30 @@ namespace ValidationRules_Tests
             PropertyValidationRule<string, string> tObj = new PropertyValidationRule<string, string>("TestRuleName", "TestDescription", "StringProp");
 
             Assert.Equal("Test Value", tObj.PropertyValue(tobj1));
-   
+
             Assert.Equal("Tests2 Value", tObj.PropertyValue(new Tested2()));
-            Assert.Equal("three", tObj.PropertyValue(new Tested3()));
+            Assert.Null(tObj.PropertyValue(new Tested3()));
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        public void POCO_Validation(string val)
+        {
+            Tested3 tObj = new Tested3();
+            IValidationRule rule = CommonPropRules.NotEmptyStringValidation("StringProp");
+
+            tObj.StringProp = val;
+            Assert.True(rule.IsBroken(tObj));
+        }
+
+        [Fact]
+        public void POCO_Validation_Valid()
+        {
+            Tested3 tObj = new Tested3();
+            IValidationRule rule = CommonPropRules.NotEmptyStringValidation("StringProp");
+            tObj.StringProp = "Test";
+            Assert.False(rule.IsBroken(tObj));
         }
 
     }
@@ -103,7 +123,7 @@ namespace ValidationRules_Tests
 
     public class Tested3
     {
-        public string StringProp { get; set; } = "three";
+        public string StringProp { get; set; }
     }
 
 
@@ -135,7 +155,7 @@ namespace ValidationRules_Tests
         }
 
         private BrokenValidationRules broken;
-        public IEnumerable<IValidationRule> InvalidRules(bool recheck = true)
+        public IEnumerable<IBrokenRule> InvalidRules(bool recheck = true)
         {
             if (broken == null || recheck)
             {
@@ -144,7 +164,7 @@ namespace ValidationRules_Tests
                 {
                     if (itm.IsBroken(this))
                     {
-                        broken.Add(itm);
+                        broken.Add(new BrokenValidationRule(itm, this));
                     }
                 }
             }

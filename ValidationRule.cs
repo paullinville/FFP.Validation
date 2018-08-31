@@ -1,54 +1,81 @@
 ﻿using FFP.CoreUtilities;
+using System;
+using System.Collections.Generic;
 
 namespace FFP.Validations
 {
 
-    public class ValidationRule<t> : IValidationRule where t : IValidatedItem
+    public class Rule<t> : IValidationRule
+    {
+        public Rule(ValidationHandler<t> handler, string ruleName, string description)
+        {
+            Handler = handler;
+            RuleName = ruleName;
+            Description = description;
+        }
+
+        public ValidationHandler<t> Handler { get; set; }
+        public string RuleName { get; set; }
+        public string Description { get; set; }
+        public ValidationSeverity Severity { get; set; } = ValidationSeverity.Critical;
+
+        public bool IsBroken(object itm)
+        {
+            if (itm is t)
+            {
+                return Handler.Invoke(this, (t)itm);
+            }
+            return false;
+
+        }
+    }
+
+    public class ValidatedItemRule : IValidationRule //where t : IValidatedItem
     {
         public const string STR_EMPTY = "(Empty)";
 
-        protected ValidationRule(string v)
+        protected ValidatedItemRule(string v)
         {
         }
 
-        public ValidationRule(string Validation, string Description)
+        public ValidatedItemRule(string Validation, string Description)
         {
             RuleName = Validation;
             this.Description = Description;
             this.Severity = ValidationSeverity.Critical;
         }
 
-        public ValidationRule(string Validation, string Description, ValidationHandler<t> handler)
+        public ValidatedItemRule(string Validation, string Description, ValidationHandler<IValidatedItem> handler)
         {
             RuleName = Validation;
             this.Description = Description;
             ValidationHandler = handler;
         }
 
-        bool IValidationRule.IsBroken(IValidatedItem itm)
+        bool IValidationRule.IsBroken(object itm)
         {
 
-            return InvokedValidationBroken(itm);
-        }
-
-        private bool InvokedValidationBroken(IValidatedItem itm)
-        {
-            return InvokedValidationBroken(itm);
-        }
-
-        protected virtual bool InvokedValidationBroken(t itm)
-        {
             if (ValidationHandler == null)
             {
                 return false;
             }
             else
             {
-                return ValidationHandler.Invoke(this, itm);
+                if (itm is IValidatedItem)
+                {
+                    return ValidationHandler.Invoke(this, (IValidatedItem)itm);
+                }
+                else
+                {
+                    return ValidationHandler.Invoke(this, new ValidateItemWrapper(itm));
+                }
+
             }
         }
 
-        private ValidationHandler<t> ValidationHandler { get; set; }
+
+
+        private ValidationHandler<IValidatedItem> ValidationHandler { get; set; }
 
         public ValidationSeverity Severity { get; set; } = ValidationSeverity.Critical;
 
@@ -66,6 +93,10 @@ namespace FFP.Validations
                 _description1 = value;
             }
         }
+
+        string IRule.RuleName { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        string IRule.Description { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        ValidationSeverity IRule.Severity { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
         public override bool Equals(object obj)
         {
@@ -92,6 +123,48 @@ namespace FFP.Validations
             return (RuleName).GetHashCode();
         }
 
+    }
+
+    public class ValidateItemWrapper : List<IValidationRule>, IValidatedItem
+    {
+        public ValidateItemWrapper(object ruledItem)
+        {
+            RuledItem = ruledItem;
+        }
+
+        public Guid BOID { get; }
+
+        private object RuledItem { get; set; }
+
+        public void AddRule(IValidationRule Validation)
+        {
+            Add(Validation);
+        }
+
+        public string FriendlyName()
+        {
+            throw new NotImplementedException();
+        }
+
+        private BrokenValidationRules brokenRules { get; set; }
+
+
+        public IEnumerable<IBrokenRule> InvalidRules(bool recheck = true)
+        {
+            if (recheck || brokenRules == null)
+            {
+                brokenRules = new BrokenValidationRules();
+                List<IValidationRule> lst = new List<IValidationRule>();
+                foreach (IValidationRule rle in this)
+                {
+                    if (rle.IsBroken(RuledItem))
+                    {
+                        brokenRules.Add(new BrokenValidationRule(rle, this));
+                    }
+                }
+            }
+            return brokenRules;
+        }
 
     }
 }

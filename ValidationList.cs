@@ -1,5 +1,4 @@
-﻿using FFP.BO.Interfaces;
-using FFP.CoreUtilities;
+﻿using FFP.CoreUtilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +6,10 @@ using System.Linq;
 namespace FFP.Validations
 {
 
-    [Serializable()]
     public class ValidationList
     {
-        [NonSerialized()]
-        private IValidatedItem mTarget;
+
+        private readonly IValidatedItem mTarget;
 
         public ValidationList(IValidatedItem target)
         {
@@ -48,7 +46,7 @@ namespace FFP.Validations
                 lvValidationsList = new List<IValidationRule>();
             return lvValidationsList;
         }
-               
+
         public void AddValidation(IValidationRule Validation)
         {
             if (Validation == null)
@@ -88,9 +86,7 @@ namespace FFP.Validations
             foreach (IValidationRule Validation in ValidationsList())
             {
                 if (Validation.IsBroken(mTarget))
-                    BrokenValidations.Add(Validation);
-                else
-                    BrokenValidations.Remove(Validation);
+                    BrokenValidations.Add(new BrokenValidationRule(Validation, null));
             }
         }
 
@@ -136,7 +132,7 @@ namespace FFP.Validations
                     select item.Description).ListToString(",");
         }
 
-        public IEnumerable<IValidationRule> BrokenValidationsForSeverity(ValidationSeverity severity)
+        public IEnumerable<IBrokenRule> BrokenValidationsForSeverity(ValidationSeverity severity)
         {
             CheckValidations();
             return from itm in BrokenValidations

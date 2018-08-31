@@ -1,5 +1,4 @@
-﻿using FFP.BO.Interfaces;
-using FFP.CoreUtilities;
+﻿using FFP.CoreUtilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,7 +90,7 @@ namespace FFP.Validations
             {
                 ValidationGroupAttribute ValidationGroup = (ValidationGroupAttribute)Attribute.GetCustomAttribute(theType, typeof(ValidationGroupAttribute));
                 if (ValidationGroup.Groups.Contains(from itm in BadGroups
-                                              select itm.Trim().ToUpper()))
+                                                    select itm.Trim().ToUpper()))
                     return true;
             }
             return false;
@@ -105,7 +104,7 @@ namespace FFP.Validations
             {
                 ValidationGroupAttribute ValidationGroup = (ValidationGroupAttribute)Attribute.GetCustomAttribute(theType, typeof(ValidationGroupAttribute));
                 if (ValidationGroup.Groups.Contains(from itm in GoodGroups
-                                              select itm.Trim().ToUpper()))
+                                                    select itm.Trim().ToUpper()))
                     return true;
             }
             return false;
@@ -136,23 +135,14 @@ namespace FFP.Validations
                 return false;
         }
 
-        public void CheckValidations(IValidatedItem obj)
-        {
-            if (ValidationRuleTypeDic.ContainsKey(obj.GetType()))
-            {
-                foreach (ITypeValidation clasValidations in ValidationRuleTypeDic[obj.GetType()])
-                    clasValidations.CheckRules(obj);
-            }
-        }
-
-        public IEnumerable<IValidationRule> ValidationRules(IValidatedItem obj)
+        public IEnumerable<IRule> ValidationRules(object obj)
         {
             return TypeValidations(obj.GetType());
         }
 
-        public IEnumerable<IValidationRule> TypeValidations(Type objType)
+        public IEnumerable<IRule> TypeValidations(Type objType)
         {
-            List<IValidationRule> lst = new List<IValidationRule>();
+            List<IRule> lst = new List<IRule>();
             if (ValidationRuleTypeDic.ContainsKey(objType))
             {
                 foreach (ITypeValidation itm in ValidationRuleTypeDic[objType])
@@ -162,9 +152,16 @@ namespace FFP.Validations
             return lst;
         }
 
-        public void CheckBusinessValidations(IValidatedItem obj)
+        public IEnumerable<IBrokenRule> CheckValidationRules(object obj)
         {
-            CheckValidations(obj);
+            if (ValidationRuleTypeDic.ContainsKey(obj.GetType()))
+            {
+                BrokenValidationRules broke = new BrokenValidationRules();
+                foreach (ITypeValidation clasValidations in ValidationRuleTypeDic[obj.GetType()])
+                    broke.AddRange(clasValidations.Validate(obj));
+                return broke;
+            }
+            return null;
         }
     }
 }

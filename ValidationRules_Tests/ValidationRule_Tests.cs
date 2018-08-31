@@ -11,8 +11,16 @@ namespace ValidationRules_Tests
         [Fact]
         public void CtorTest()
         {
-            ValidationRule<IValidatedItem> tObj = new ValidationRule<IValidatedItem>("testName", "testDescription");
+            ValidatedItemRule tObj = new ValidatedItemRule("testName", "testDescription");
             
         }
+       
+        [Fact]
+        public void Poco_Rule_Ctor()
+        {
+           // POCOValidationRule tObj = new POCOValidationRule();
+        }
+
+        
     }
 }

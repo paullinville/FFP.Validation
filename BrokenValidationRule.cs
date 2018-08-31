@@ -1,69 +1,44 @@
-﻿using CSLA;
-using FFP.BO.Interfaces;
-using FFP.CoreUtilities;
+﻿using FFP.CoreUtilities;
 using System;
-using System.Collections.Generic;
 
 namespace FFP.Validations
 {
     public class BrokenValidationRule : IBrokenRule
     {
-        private Guid IValidationdItemID { get; set; }
-        public BrokenValidationRule(IValidationRule rle, IIdentifiable objectBroke)
+        public object ObjectBroke { get; set; }
+        public BrokenValidationRule(IRule rle, object objectBroke)
         {
-            IsBroken = true;
-            {
-                var withBlock = rle;
-                Description = withBlock.Description;
-                RuleName = withBlock.RuleName;
-                Severity = withBlock.Severity;
-                IValidationdItemID = objectBroke.IfNullBOID();
-            }
- 
+            Description = rle.Description;
+            RuleName = rle.RuleName;
+            Severity = rle.Severity;
+            ObjectBroke = objectBroke;
+            Reason = rle.Description;
         }
 
         public BrokenValidationRule(string name, string desc, string propName, ValidationSeverity sev)
         {
-            IsBroken = true;
             Description = desc + "";
-            PropertyName = propName + "";
+            Reason = Description;
             RuleName = name + "";
             Severity = sev;
         }
 
-        public BrokenValidationRule(IIdentifiable objectBroke, string name, string desc, string propName, ValidationSeverity sev)
+        public BrokenValidationRule(string name, string desc, string propName, ValidationSeverity sev, object objectBroke)
         {
-            IsBroken = true;
             Description = desc + "";
-            PropertyName = propName + "";
             RuleName = name + "";
-            IValidationdItemID = objectBroke.IfNullBOID();
+            ObjectBroke = objectBroke;
             Severity = sev;
+            Reason = Description;
         }
 
         public string Description { get; set; }
-
-        private List<string> lvProperties;
-        public bool HandlesProperty(string propName)
-        {
-            if (lvProperties != null)
-                return PropertyName.CompareAbsolute(propName) || lvProperties.ContainsAbsolute(propName);
-            else
-                return PropertyName.CompareAbsolute(propName);
-        }
-
-        public bool IsBroken { get; set; }
-
-        public string PropertyName { get; set; }
-
-        public object PropertyValue { get; set; }
 
         public string RuleName { get; set; }
 
         public ValidationSeverity Severity { get; set; }
 
-        public IValidatedItem ItemValidated { get; set; }
-        public string Reason { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Reason { get; set; }
 
         public override bool Equals(object obj)
         {

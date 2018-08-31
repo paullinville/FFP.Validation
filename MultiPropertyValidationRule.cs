@@ -20,6 +20,7 @@ namespace FFP.Validations
         }
 
         private List<string> lvProperties = new List<string>();
+
         public List<string> Properties
         {
             get

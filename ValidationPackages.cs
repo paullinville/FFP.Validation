@@ -53,12 +53,12 @@ public class RulePackages
     public static void CheckRules(IValidatedItem bo)
     {
         foreach (IValidationPackage pckg in Packages())
-            pckg.CheckBusinessValidations(bo);
+            pckg.CheckValidationRules(bo);
     }
 
-    public static IEnumerable<IValidationRule> ListRules(IValidatedItem bo)
+    public static IEnumerable<IRule> ListRules(IValidatedItem bo)
     {
-        List<IValidationRule> lst = new List<IValidationRule>();
+        List<IRule> lst = new List<IRule>();
         foreach (IValidationPackage pckg in Packages())
             lst.AddRange(pckg.ValidationRules(bo));
         return lst;

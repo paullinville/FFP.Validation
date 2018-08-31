@@ -5,9 +5,9 @@ using System.Collections.Generic;
 namespace FFP.Validations
 {
     [Serializable()]
-    public class BrokenValidationRules : System.Collections.ObjectModel.Collection<IValidationRule>
+    public class BrokenValidationRules : System.Collections.ObjectModel.Collection<IBrokenRule>
     {
-        internal new void Add(IValidationRule Validation)
+        internal new void Add(IBrokenRule Validation)
         {
             if (IgnoreValidation(Validation.RuleName))
                 return;
@@ -36,7 +36,7 @@ namespace FFP.Validations
             if (itm.IsValid())
                 return;
 
-            foreach (IValidationRule Validation in itm.InvalidRules())
+            foreach (IBrokenRule Validation in itm.InvalidRules())
                 this.Add(Validation);
         }
 
@@ -46,10 +46,10 @@ namespace FFP.Validations
                 AddValidations(itm);
         }
 
-        public void AddRange(IEnumerable<IValidationRule> brokenValidations)
+        public void AddRange(IEnumerable<IBrokenRule> brokenValidations)
         {
-            foreach (IValidationRule itm in brokenValidations)
-                Add(itm);
+            foreach (IBrokenRule itm in brokenValidations)
+                 Add(itm);
         }
     }
 }

@@ -3,12 +3,9 @@ using System.Collections.Generic;
 
 namespace FFP.Validations
 {
-    public class SimpleValidationList : List<IValidationRule>
+    public class SimpleRuleList : List<IRule>
     {
-        public void AddValidation(IValidationRule Validation)
-        {
-            this.Add(Validation);
-        }
+
     }
 }
 
