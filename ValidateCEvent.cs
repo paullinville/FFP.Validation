@@ -1,15 +1,15 @@
 ﻿using Observer;
 namespace FFP.Validations
 {
-    public class ValidCE : ChannelEvent
+    public class ValidateCEvent : ChannelEvent
     {
-        public ValidCE(IPublisher Source, string Name, IRule Value) :
+        public ValidateCEvent(IPublisher Source, string Name, IRuleDescription Value) :
             base(Source, StandardEventChannel.Validation, Name, Value)
         {
             Rule = Value;
         }
 
-        public IRule Rule { get; set; }
+        public IRuleDescription Rule { get; set; }
 
         public bool CheckRule { get; set; } = true;
     }

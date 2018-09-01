@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 namespace FFP.Validations
 {
-    public abstract class TypeValidation : ITypeValidation, IPublisher
+    public abstract class TypeValidation : IValidation, IPublisher
     {
         public TypeValidation()
         {
@@ -22,14 +22,14 @@ namespace FFP.Validations
         public IEnumerable<IBrokenRule> Validate(object bo)
         {
             List<IBrokenRule> broke = new List<IBrokenRule>();
-            foreach (IRule rle in ValidationList)
+            foreach (IRuleDescription rle in ValidationList)
             {
-                if (EventChannels.Publish<ValidCE>(new ValidCE(this, "CheckRule", rle)).CheckRule)
+                if (EventChannels.Publish<ValidateCEvent>(new ValidateCEvent(this, "CheckRule", rle)).CheckRule)
                 {
-                    if (rle is IValidationRule)
+                    if (rle is IRule)
                     {
-                        if (((IValidationRule)rle).IsBroken(bo))
-                            broke.Add(new BrokenValidationRule(rle, bo));
+                        if (((IRule)rle).IsBroken(bo))
+                            broke.Add(new BrokenRule(rle, bo));
                     }
 
                 }

@@ -10,7 +10,7 @@ namespace FFP.Validations
         //{
         //}
 
-        public ClientSideValidationRule(string ruleName, string Description, string PropName, PropValidationHandler<t, u> handler) : base(ruleName, Description, PropName, handler)
+        public ClientSideValidationRule(string ruleName, string Description, string PropName, PropValidationDelegate<t, u> handler) : base(ruleName, Description, PropName, handler)
         {
             
         }

@@ -8,7 +8,7 @@ namespace FFP.Validations
     {
         public const string EqualToValidationName = "Equal To";
 
-        public static IValidationRule NotNothingValidation(string propName, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule NotNothingValidation(string propName, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<object, object> newValidation = new ClientSideValidationRule<object, object>("Not Nothing",
                                                                                                             "Value must be set.",
@@ -18,7 +18,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule DateNotMinValidation(string propname, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule DateNotMinValidation(string propname, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<DateTime, object> newValidation = new ClientSideValidationRule<DateTime, object>("Date Not Min",
                 "Date must be set.",
@@ -29,7 +29,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule DateNotMaxValidation(string propname, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule DateNotMaxValidation(string propname, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<DateTime, object> newValidation = new ClientSideValidationRule<DateTime, object>("Date Not Max",
                 "Date must be less than " + DateTime.MaxValue.ToString() + ".",
@@ -39,7 +39,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule MaxStringLengthValidation(string propname, int maxLength, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule MaxStringLengthValidation(string propname, int maxLength, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<string, int> newValidation = new ClientSideValidationRule<string, int>("Max String Length",
                                                                           "Length of string cannot exceed " + maxLength.ToString() + " characters.",
@@ -50,7 +50,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule MinStringLengthValidation(string propname, int minLength, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule MinStringLengthValidation(string propname, int minLength, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<string, int> newValidation = new ClientSideValidationRule<string, int>("Min String Length",
                                                                             "Length of string must be at least " + minLength.ToString() + " characters.",
@@ -62,7 +62,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule NotEmptyStringValidation(string PropName = null, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule NotEmptyStringValidation(string PropName = null, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<string, string> newValidation = new ClientSideValidationRule<string, string>("Not Empty",
                                                                           "Value cannot be empty.",
@@ -73,7 +73,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule GuidNotEmpty(string propname, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule GuidNotEmpty(string propname, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<Guid, Guid> newValidation = new ClientSideValidationRule<Guid, Guid>("GUID Not Empty",
                                                                             "Item cannot be empty.",
@@ -84,7 +84,7 @@ namespace FFP.Validations
         }
 
 
-        public static IValidationRule GuidEmpty(string propname, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule GuidEmpty(string propname, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<Guid, Guid> newValidation = new ClientSideValidationRule<Guid, Guid>("GUID Empty",
                                                                                                   "Item must be empty.",
@@ -95,7 +95,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule GreaterThanValidation(IComparable allowedValue, string propname, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule GreaterThanValidation(IComparable allowedValue, string propname, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<IComparable, IComparable> newValidation = new ClientSideValidationRule<IComparable, IComparable>("Greater Than",
                                                                             "Value must be greater than " + allowedValue.ToString() + ".",
@@ -107,7 +107,7 @@ namespace FFP.Validations
         }
 
 
-        public static IValidationRule LessThanValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule LessThanValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<IComparable, IComparable> newValidation = new ClientSideValidationRule<IComparable, IComparable>("Less Than",
                                                                                                     "Value must be less than " + value.ToString() + ".",
@@ -119,7 +119,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule GreaterThanOrEqualToValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule GreaterThanOrEqualToValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<IComparable, IComparable> newValidation = new ClientSideValidationRule<IComparable, IComparable>("Greater Than Or Equal To",
                                                                           "Value must be greater than or equal to " + value.ToString() + ".",
@@ -131,7 +131,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule LessThanOrEqualToValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule LessThanOrEqualToValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<IComparable, IComparable> newValidation = new ClientSideValidationRule<IComparable, IComparable>("Less Than Or Equal To",
                                                                           "Value must be less than or equal to " + value.ToString() + ".",
@@ -143,7 +143,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule BetweenValidation(string propname, IComparable fromVal, IComparable toval, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule BetweenValidation(string propname, IComparable fromVal, IComparable toval, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<IComparable, ValueRangeValidationHelper> newValidation = new ClientSideValidationRule<IComparable, ValueRangeValidationHelper>("Between",
                                                                             "Value must be between " + fromVal.ToString() + " and " + toval.ToString() + ".",
@@ -155,7 +155,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule BetweenValidation(string propname, IDateRange range, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule BetweenValidation(string propname, IDateRange range, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<DateTime, IDateRange> newValidation = new ClientSideValidationRule<DateTime, IDateRange>("Date Between",
                                                                                                                       "Date must be between " + range.FirstValidDate.ToString() + " and " + range.LastValidDate.ToString() + ".",
@@ -166,7 +166,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule NumberRangeValidationAllowMin(string propname, byte intPartLength, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule NumberRangeValidationAllowMin(string propname, byte intPartLength, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             decimal number;
             if (intPartLength == 0)
@@ -193,7 +193,7 @@ namespace FFP.Validations
         }
 
 
-        public static IValidationRule NumberRangeValidation(string propname, byte intPartLength, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule NumberRangeValidation(string propname, byte intPartLength, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             decimal number;
             if (intPartLength == 0)
@@ -222,7 +222,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule EqualToValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule EqualToValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<IComparable, IComparable> newValidation = new ClientSideValidationRule<IComparable, IComparable>(EqualToValidationName,
                                                                           "Value must be equal to " + value.ToString() + ".",
@@ -234,7 +234,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule NotEqualToValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule NotEqualToValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<IComparable, IComparable> newValidation = new ClientSideValidationRule<IComparable, IComparable>("Not Equal To",
                                                     "Value must not be equal to " + value.ToString() + ".",
@@ -246,7 +246,7 @@ namespace FFP.Validations
         }
 
 
-        public static IValidationRule IsNotNumeric(string propname, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule IsNotNumeric(string propname, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<object, object> newValidation;
             newValidation = new ClientSideValidationRule<object, object>("Is Not Numeric",
@@ -258,7 +258,7 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IValidationRule MustBeNullOrNumeric(string propname, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule MustBeNullOrNumeric(string propname, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<object, object> newValidation = new ClientSideValidationRule<object, object>("Must Be Null Or Numeric",
                                                                                                             "Value {0} is not a valid number.".FormatStr(propname),

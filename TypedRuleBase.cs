@@ -1,8 +1,8 @@
 ﻿namespace FFP.Validations
 {
-    public abstract class POCOValidationRuleBase<t> : ITypeRule<t>
+    public abstract class TypedRuleBase<t> : ITypeRule<t>
     {
-        protected POCOValidationRuleBase(string ruleName, 
+        protected TypedRuleBase(string ruleName, 
                                          string description)
         {
             RuleName = ruleName;
@@ -16,7 +16,7 @@
 
         public abstract bool IsBroken(t itm);
 
-        bool IValidationRule.IsBroken(object itm)
+        bool IRule.IsBroken(object itm)
         {
             if (itm is t)
                 return IsBroken((t)itm);

@@ -12,7 +12,7 @@ namespace FFP.Validations
             return val == null || !val.HasCritical();
         }
 
-        public static string BrokenValidations(this IEnumerable<IValidationRule> val)
+        public static string BrokenValidations(this IEnumerable<IRule> val)
         {
             if (val.IsEmpty())
                 return "";
@@ -22,7 +22,7 @@ namespace FFP.Validations
 
                 bool first = true;
 
-                foreach (IValidationRule item in val)
+                foreach (IRule item in val)
                 {
                     if (first)
                         first = false;
@@ -38,26 +38,26 @@ namespace FFP.Validations
             }
         }
 
-        public static string BrokenValidationsString(this IEnumerable<IValidationRule> val, IValidatedItem vitm)
+        public static string BrokenValidationsString(this IEnumerable<IRule> val, IValidatedItem vitm)
         {
             return BrokenValidations(from itm in val.Values()
                                      where itm.IsBroken(vitm)
                                      select itm);
         }
 
-        public static string BrokenValidationsString(this IEnumerable<IValidationRule> val, IValidatedItem vitm, ValidationSeverity severity)
+        public static string BrokenValidationsString(this IEnumerable<IRule> val, IValidatedItem vitm, ValidationSeverity severity)
         {
             return BrokenValidations(from itm in val.Values()
                                      where itm.IsBroken(vitm) && itm.Severity == severity
                                      select itm);
         }
 
-        public static BrokenValidationRule CheckValidation(this IValidationRule val, IValidatedItem bo)
+        public static BrokenRule CheckValidation(this IRule val, IValidatedItem bo)
         {
-            BrokenValidationRule Validation = null;
+            BrokenRule Validation = null;
 
             if (val.IsBroken(bo))
-                Validation = new BrokenValidationRule(val, bo);
+                Validation = new BrokenRule(val, bo);
             return Validation;
 
         }
@@ -68,7 +68,7 @@ namespace FFP.Validations
                 return false;
             else
             {
-                foreach (IValidationRule rle in val)
+                foreach (IRule rle in val)
                 {
                     if (rle.Severity == ValidationSeverity.Critical)
                         return true;

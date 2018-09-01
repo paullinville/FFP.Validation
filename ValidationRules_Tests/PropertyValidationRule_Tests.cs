@@ -19,7 +19,7 @@ namespace ValidationRules_Tests
         public void NotEmptyStringValidation_Broke()
         {
             Tested1 validated = new Tested1();
-            IValidationRule tObj = CommonPropRules.NotEmptyStringValidation("StringProp");
+            IRule tObj = CommonPropRules.NotEmptyStringValidation("StringProp");
             Assert.True(tObj.IsBroken(validated));
         }
 
@@ -28,7 +28,7 @@ namespace ValidationRules_Tests
         public void NotEmptyStringValidation_NotBroke()
         {
             Tested1 validated = new Tested1() { StringProp = "Test" };
-            IValidationRule tObj = CommonPropRules.NotEmptyStringValidation("StringProp");
+            IRule tObj = CommonPropRules.NotEmptyStringValidation("StringProp");
             Assert.False(tObj.IsBroken(validated));
         }
 
@@ -36,7 +36,7 @@ namespace ValidationRules_Tests
         public void NotEmptyGuidValidation_Broke()
         {
             Tested1 validated = new Tested1();
-            IValidationRule tObj = CommonPropRules.GuidNotEmpty("GuidProp");
+            IRule tObj = CommonPropRules.GuidNotEmpty("GuidProp");
             Assert.True(tObj.IsBroken(validated));
         }
 
@@ -45,7 +45,7 @@ namespace ValidationRules_Tests
         public void NotEmptyGuidValidation_NotBroke()
         {
             Tested1 validated = new Tested1() { GuidProp = Guid.NewGuid() };
-            IValidationRule tObj = CommonPropRules.GuidNotEmpty("GuidProp");
+            IRule tObj = CommonPropRules.GuidNotEmpty("GuidProp");
             Assert.False(tObj.IsBroken(validated));
         }
 
@@ -53,7 +53,7 @@ namespace ValidationRules_Tests
         public void GuidEmptyValidation_Broke()
         {
             Tested1 validated = new Tested1() { GuidProp = Guid.NewGuid() };
-            IValidationRule tObj = CommonPropRules.GuidEmpty("GuidProp");
+            IRule tObj = CommonPropRules.GuidEmpty("GuidProp");
             Assert.True(tObj.IsBroken(validated));
         }
 
@@ -61,7 +61,7 @@ namespace ValidationRules_Tests
         public void GuidEmptyValidation_NotBroke()
         {
             Tested1 validated = new Tested1() { GuidProp = Guid.Empty };
-            IValidationRule tObj = CommonPropRules.GuidEmpty("GuidProp");
+            IRule tObj = CommonPropRules.GuidEmpty("GuidProp");
             Assert.False(tObj.IsBroken(validated));
         }
 
@@ -69,7 +69,7 @@ namespace ValidationRules_Tests
         public void GreaterThan_Broke()
         {
             Tested1 validated = new Tested1() { IntProp = 1 };
-            IValidationRule tObj = CommonPropRules.GreaterThanValidation(1, "IntProp");
+            IRule tObj = CommonPropRules.GreaterThanValidation(1, "IntProp");
             Assert.True(tObj.IsBroken(validated));
         }
 
@@ -78,7 +78,7 @@ namespace ValidationRules_Tests
         {
             Tested1 validated = new Tested1() { IntProp = 2 };
             Tested1 val2 = new Tested1() { IntProp = 0 };
-            IValidationRule tObj = CommonPropRules.GreaterThanValidation(1, "IntProp");
+            IRule tObj = CommonPropRules.GreaterThanValidation(1, "IntProp");
             Assert.False(tObj.IsBroken(validated));
             Assert.True(tObj.IsBroken(val2));
         }
@@ -102,7 +102,7 @@ namespace ValidationRules_Tests
         public void POCO_Validation(string val)
         {
             Tested3 tObj = new Tested3();
-            IValidationRule rule = CommonPropRules.NotEmptyStringValidation("StringProp");
+            IRule rule = CommonPropRules.NotEmptyStringValidation("StringProp");
 
             tObj.StringProp = val;
             Assert.True(rule.IsBroken(tObj));
@@ -112,7 +112,7 @@ namespace ValidationRules_Tests
         public void POCO_Validation_Valid()
         {
             Tested3 tObj = new Tested3();
-            IValidationRule rule = CommonPropRules.NotEmptyStringValidation("StringProp");
+            IRule rule = CommonPropRules.NotEmptyStringValidation("StringProp");
             tObj.StringProp = "Test";
             Assert.False(rule.IsBroken(tObj));
         }
@@ -135,41 +135,12 @@ namespace ValidationRules_Tests
         }
     }
 
-    public class Tested1 : IValidatedItem
+    public class Tested1 : ValidatedBase
     {
         public string StringProp { get; set; }
         public Guid GuidProp { get; set; }
         public int IntProp { get; set; }
         public decimal DecimalProp { get; set; }
-
-        public Guid BOID => throw new NotImplementedException();
-        private List<IValidationRule> rules = new List<IValidationRule>();
-        public void AddRule(IValidationRule Validation)
-        {
-            rules.Add(Validation);
-        }
-
-        public string FriendlyName()
-        {
-            return "Tested1";
-        }
-
-        private BrokenValidationRules broken;
-        public IEnumerable<IBrokenRule> InvalidRules(bool recheck = true)
-        {
-            if (broken == null || recheck)
-            {
-                broken = new BrokenValidationRules();
-                foreach (var itm in rules)
-                {
-                    if (itm.IsBroken(this))
-                    {
-                        broken.Add(new BrokenValidationRule(itm, this));
-                    }
-                }
-            }
-            return broken;
-        }
     }
 
 }

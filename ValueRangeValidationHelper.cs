@@ -2,7 +2,6 @@
 
 namespace FFP.Validations
 {
-    [Serializable()]
     public class ValueRangeValidationHelper
     {
         public IComparable FromValue;

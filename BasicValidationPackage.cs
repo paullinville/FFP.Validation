@@ -9,9 +9,12 @@ namespace FFP.Validations
     {
         public BasicValidationPackage()
         {
+            AddValidationClasses();
         }
 
-        public Dictionary<Type, List<ITypeValidation>> ValidationRuleTypeDic { get; set; }
+      
+
+        public Dictionary<Type, List<IValidation>> ValidationRuleTypeDic { get; set; }
         public List<string> GoodGroups { get; set; } = new List<string>();
         public List<string> BadGroups { get; set; } = new List<string>();
 
@@ -21,7 +24,7 @@ namespace FFP.Validations
         }
 
         private IEnumerable<Type> lvTypes;
-        public IEnumerable<Type> Types
+        public IEnumerable<Type> TypesValidated
         {
             get
             {
@@ -42,16 +45,16 @@ namespace FFP.Validations
         {
             if (ValidationRuleTypeDic == null)
             {
-                ValidationRuleTypeDic = new Dictionary<Type, List<ITypeValidation>>();
-                foreach (System.Type tp in Types)
+                ValidationRuleTypeDic = new Dictionary<Type, List<IValidation>>();
+                foreach (System.Type tp in TypesValidated)
                 {
-                    if (tp.GetInterfaces().Contains(typeof(ITypeValidation)) && tp.IsAbstract.IsFalse() && IsProperGroup(tp))
+                    if (tp.GetInterfaces().Contains(typeof(IValidation)) && tp.IsAbstract.IsFalse() && IsProperGroup(tp))
                     {
-                        ITypeValidation classValidations = (ITypeValidation)System.Activator.CreateInstance(tp);
+                        IValidation classValidations = (IValidation)System.Activator.CreateInstance(tp);
                         foreach (Type clsTp in classValidations.TypeFor)
                         {
                             if (ValidationRuleTypeDic.ContainsKey(clsTp).IsFalse())
-                                ValidationRuleTypeDic.Add(clsTp, new List<ITypeValidation>());
+                                ValidationRuleTypeDic.Add(clsTp, new List<IValidation>());
                             ValidationRuleTypeDic[clsTp].Add(classValidations);
                         }
                     }
@@ -135,29 +138,29 @@ namespace FFP.Validations
                 return false;
         }
 
-        public IEnumerable<IRule> ValidationRules(object obj)
+        public IEnumerable<IRule> PackageRules(object obj)
         {
-            return TypeValidations(obj.GetType());
+            return TypesRules(obj.GetType());
         }
 
-        public IEnumerable<IRule> TypeValidations(Type objType)
+        public IEnumerable<IRule> TypesRules(Type objType)
         {
             List<IRule> lst = new List<IRule>();
             if (ValidationRuleTypeDic.ContainsKey(objType))
             {
-                foreach (ITypeValidation itm in ValidationRuleTypeDic[objType])
+                foreach (IValidation itm in ValidationRuleTypeDic[objType])
                     lst.AddRange(itm.ValidationRules());
                 return lst;
             }
             return lst;
         }
 
-        public IEnumerable<IBrokenRule> CheckValidationRules(object obj)
+        public IEnumerable<IBrokenRule> CheckRules(object obj)
         {
             if (ValidationRuleTypeDic.ContainsKey(obj.GetType()))
             {
                 BrokenValidationRules broke = new BrokenValidationRules();
-                foreach (ITypeValidation clasValidations in ValidationRuleTypeDic[obj.GetType()])
+                foreach (IValidation clasValidations in ValidationRuleTypeDic[obj.GetType()])
                     broke.AddRange(clasValidations.Validate(obj));
                 return broke;
             }

@@ -6,10 +6,10 @@ namespace FFP.Validations
 
 
 {
-    public class PropertyValidationRule<t, u> : IPropertyValidationRule<t, u>
+    public class PropertyValidationRule<t, u> : IPropertyRule<t, u>
     {
 
-        public PropertyValidationRule(string ruleName, string Description, String propname, PropValidationHandler<t, u> handler) : this(ruleName, Description, propname)
+        public PropertyValidationRule(string ruleName, string Description, String propname, PropValidationDelegate<t, u> handler) : this(ruleName, Description, propname)
         {
             PropertyName = propname;
             Handler = handler;
@@ -22,7 +22,7 @@ namespace FFP.Validations
             this.Description = Description;
         }
         public PropertyInfo PropInfo { get; set; }
-        private PropValidationHandler<t, u> Handler { get; set; }
+        private PropValidationDelegate<t, u> Handler { get; set; }
 
         protected bool InvokedValidationBroken(object itm)
         {
@@ -67,9 +67,9 @@ namespace FFP.Validations
         {
             if (obj == null)
                 return false;
-            if (obj is IPropertyValidationRule<t, u>)
+            if (obj is IPropertyRule<t, u>)
             {
-                IPropertyValidationRule<t, u> ValidationToCompare = (IPropertyValidationRule<t, u>)obj;
+                IPropertyRule<t, u> ValidationToCompare = (IPropertyRule<t, u>)obj;
                 if (ValidationToCompare.RuleName.CompareAbsolute(RuleName) && ValidationToCompare.PropertyName.CompareAbsolute(PropertyName))
                 {
 

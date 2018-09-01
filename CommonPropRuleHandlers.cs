@@ -7,7 +7,7 @@ namespace FFP.Validations
     public class CommonPropRuleHandlers
     {
 
-        public static bool NonEmptyGuidHandler(IPropertyValidationRule<Guid, Guid> target, object objectChecked)
+        public static bool NonEmptyGuidHandler(IPropertyRule<Guid, Guid> target, object objectChecked)
         {
             if (target.PropertyValue(objectChecked).IsEmpty())
                 return true;
@@ -15,7 +15,7 @@ namespace FFP.Validations
                 return false;
         }
 
-        public static bool EmptyGuidHandler(IPropertyValidationRule<Guid, Guid> target, object objectChecked)
+        public static bool EmptyGuidHandler(IPropertyRule<Guid, Guid> target, object objectChecked)
         {
             if (target.PropertyValue(objectChecked).IsEmpty())
                 return false;
@@ -23,7 +23,7 @@ namespace FFP.Validations
                 return true;
         }
 
-        public static bool BetweenValueHandler(IPropertyValidationRule<IComparable, ValueRangeValidationHelper> target, object objectChecked)
+        public static bool BetweenValueHandler(IPropertyRule<IComparable, ValueRangeValidationHelper> target, object objectChecked)
         {
             if (target.AllowedValue == null)
                 return false;
@@ -33,7 +33,7 @@ namespace FFP.Validations
             return !val.Between(valRange.FromValue, valRange.ToValue);
         }
 
-        public static bool BetweenValueHandlerAllowMinValue(IPropertyValidationRule<IComparable, ValueRangeValidationHelper> target, object objectChecked)
+        public static bool BetweenValueHandlerAllowMinValue(IPropertyRule<IComparable, ValueRangeValidationHelper> target, object objectChecked)
         {
             if (target.AllowedValue == null)
                 return false;
@@ -44,7 +44,7 @@ namespace FFP.Validations
             return !val.Between(valRange.FromValue, valRange.ToValue);
         }
 
-        public static bool DateRangeHandler(IPropertyValidationRule<DateTime, IDateRange> target, object objectChecked)
+        public static bool DateRangeHandler(IPropertyRule<DateTime, IDateRange> target, object objectChecked)
         {
             if (target.AllowedValue != null)
             {
@@ -57,7 +57,7 @@ namespace FFP.Validations
                 return false;
         }
 
-        public static bool LessThanHandler(IPropertyValidationRule<IComparable, IComparable> target, object objectChecked)
+        public static bool LessThanHandler(IPropertyRule<IComparable, IComparable> target, object objectChecked)
         {
             if ((target.PropertyValue(objectChecked)).CompareTo(target.AllowedValue) >= 0)
                 return true;
@@ -65,7 +65,7 @@ namespace FFP.Validations
                 return false;
         }
 
-        public static bool DateNotMinHandler(IPropertyValidationRule<DateTime, object> target, object objectChecked)
+        public static bool DateNotMinHandler(IPropertyRule<DateTime, object> target, object objectChecked)
         {
             if (target.PropertyValue(objectChecked) == DateTime.MinValue)
                 return true;
@@ -73,7 +73,7 @@ namespace FFP.Validations
                 return false;
         }
 
-        public static bool DateNotMaxHandler(IPropertyValidationRule<DateTime, object> target, object objectChecked)
+        public static bool DateNotMaxHandler(IPropertyRule<DateTime, object> target, object objectChecked)
         {
             if (target.PropertyValue(objectChecked) == DateTime.MaxValue)
                 return true;
@@ -81,7 +81,7 @@ namespace FFP.Validations
                 return false;
         }
 
-        public static bool NotNullHandler(IPropertyValidationRule<object, object> target, object objectChecked)
+        public static bool NotNullHandler(IPropertyRule<object, object> target, object objectChecked)
         {
             if (target.PropertyValue(objectChecked) == null)
                 return true;
@@ -89,7 +89,7 @@ namespace FFP.Validations
                 return false;
         }
 
-        public static bool GreaterThanHandler(IPropertyValidationRule<IComparable, IComparable> target, object objectChecked)
+        public static bool GreaterThanHandler(IPropertyRule<IComparable, IComparable> target, object objectChecked)
         {
             if (target.PropertyValue(objectChecked).CompareTo(target.AllowedValue) <= 0)
                 return true;
@@ -97,7 +97,7 @@ namespace FFP.Validations
                 return false;
         }
 
-        public static bool LessThanOrEqualToHandler(IPropertyValidationRule<IComparable, IComparable> target, object objectChecked)
+        public static bool LessThanOrEqualToHandler(IPropertyRule<IComparable, IComparable> target, object objectChecked)
         {
             if (target.PropertyValue(objectChecked).CompareTo(target.AllowedValue) <= 0)
                 return false;
@@ -105,7 +105,7 @@ namespace FFP.Validations
                 return true;
         }
 
-        public static bool EqualToHandler(IPropertyValidationRule<IComparable, IComparable> target, object objectChecked)
+        public static bool EqualToHandler(IPropertyRule<IComparable, IComparable> target, object objectChecked)
         {
             if (target.PropertyValue(objectChecked).CompareTo(target.AllowedValue) == 0)
                 return false;
@@ -113,7 +113,7 @@ namespace FFP.Validations
                 return true;
         }
 
-        public static bool NotEqualToHandler(IPropertyValidationRule<IComparable, IComparable> target, object objectChecked)
+        public static bool NotEqualToHandler(IPropertyRule<IComparable, IComparable> target, object objectChecked)
         {
             if (target.PropertyValue(objectChecked).CompareTo((IComparable)target.AllowedValue) != 0)
                 return false;
@@ -121,7 +121,7 @@ namespace FFP.Validations
                 return true;
         }
 
-        public static bool GreaterThanOrEqualToHandler(IPropertyValidationRule<IComparable, IComparable> target, object objectChecked)
+        public static bool GreaterThanOrEqualToHandler(IPropertyRule<IComparable, IComparable> target, object objectChecked)
         {
             if (target.PropertyValue(objectChecked).CompareTo(target.AllowedValue) >= 0)
                 return false;
@@ -129,7 +129,7 @@ namespace FFP.Validations
                 return true;
         }
 
-        public static bool NonBlankStringHandler(IPropertyValidationRule<String, string> target, object objectChecked)
+        public static bool NonBlankStringHandler(IPropertyRule<String, string> target, object objectChecked)
         {
             String propVal = target.PropertyValue(objectChecked);
             if (propVal != null)
@@ -139,7 +139,7 @@ namespace FFP.Validations
         }
 
 
-        public static bool MaxStringLengthHandler(IPropertyValidationRule<String, int> target, object objectChecked)
+        public static bool MaxStringLengthHandler(IPropertyRule<String, int> target, object objectChecked)
         {
             if (target.PropertyValue(objectChecked) == null)
                 return false;
@@ -150,7 +150,7 @@ namespace FFP.Validations
                 return false;
         }
 
-        public static bool MinStringLengthHandler(IPropertyValidationRule<String, int> target, object objectChecked)
+        public static bool MinStringLengthHandler(IPropertyRule<String, int> target, object objectChecked)
         {
             if (target.PropertyValue(objectChecked) == null)
                 return true;
@@ -161,7 +161,7 @@ namespace FFP.Validations
                 return false;
         }
 
-        public static bool IsNumberBroke(IPropertyValidationRule<Object, object> target, object objectChecked)
+        public static bool IsNumberBroke(IPropertyRule<Object, object> target, object objectChecked)
         {
 
             return CoreUtilities.Extensions.IsNumeric(target.PropertyValue(objectChecked).ToString()).IsFalse();

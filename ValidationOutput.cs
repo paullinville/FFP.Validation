@@ -6,8 +6,8 @@ namespace FFP.Validations
 {
     public class ValidationOutput
     {
-        protected IValidationRule Validation { get; set; }
-        public ValidationOutput(IValidationRule rl)
+        protected IRule Validation { get; set; }
+        public ValidationOutput(IRule rl)
         {
             Validation = rl;
         }
