@@ -95,10 +95,11 @@ namespace FFP.Validations
             return newValidation;
         }
 
-        public static IRule GreaterThanValidation(IComparable allowedValue, string propname, ValidationSeverity severity = ValidationSeverity.Critical)
+        public static IRule GreaterThanValidation(string propname, IComparable allowedValue, ValidationSeverity severity = ValidationSeverity.Critical)
         {
+
             ClientSideValidationRule<IComparable, IComparable> newValidation = new ClientSideValidationRule<IComparable, IComparable>("Greater Than",
-                                                                            "Value must be greater than " + allowedValue.ToString() + ".",
+                                                                            "Value must be greater than " + allowedValue?.ToString() + ".",
                                                                             propname,
                                                                             CommonPropRuleHandlers.GreaterThanHandler);
             newValidation.AllowedValue = allowedValue;
@@ -110,7 +111,7 @@ namespace FFP.Validations
         public static IRule LessThanValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<IComparable, IComparable> newValidation = new ClientSideValidationRule<IComparable, IComparable>("Less Than",
-                                                                                                    "Value must be less than " + value.ToString() + ".",
+                                                                                                    "Value must be less than " + value?.ToString() + ".",
                                                                                                     propname,
                                                                                                     CommonPropRuleHandlers.LessThanHandler);
 
@@ -122,7 +123,7 @@ namespace FFP.Validations
         public static IRule GreaterThanOrEqualToValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<IComparable, IComparable> newValidation = new ClientSideValidationRule<IComparable, IComparable>("Greater Than Or Equal To",
-                                                                          "Value must be greater than or equal to " + value.ToString() + ".",
+                                                                          "Value must be greater than or equal to " + value?.ToString() + ".",
                                                                           propname,
                                                                           CommonPropRuleHandlers.GreaterThanOrEqualToHandler);
 
@@ -134,7 +135,7 @@ namespace FFP.Validations
         public static IRule LessThanOrEqualToValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<IComparable, IComparable> newValidation = new ClientSideValidationRule<IComparable, IComparable>("Less Than Or Equal To",
-                                                                          "Value must be less than or equal to " + value.ToString() + ".",
+                                                                          "Value must be less than or equal to " + value?.ToString() + ".",
                                                                           propname,
                                                                           CommonPropRuleHandlers.LessThanOrEqualToHandler);
 
@@ -146,7 +147,7 @@ namespace FFP.Validations
         public static IRule BetweenValidation(string propname, IComparable fromVal, IComparable toval, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<IComparable, ValueRangeValidationHelper> newValidation = new ClientSideValidationRule<IComparable, ValueRangeValidationHelper>("Between",
-                                                                            "Value must be between " + fromVal.ToString() + " and " + toval.ToString() + ".",
+                                                                            "Value must be between " + fromVal?.ToString() + " and " + toval?.ToString() + ".",
                                                                             propname,
                                                                             CommonPropRuleHandlers.BetweenValueHandler);
 
@@ -225,7 +226,7 @@ namespace FFP.Validations
         public static IRule EqualToValidation(string propname, IComparable value, ValidationSeverity severity = ValidationSeverity.Critical)
         {
             ClientSideValidationRule<IComparable, IComparable> newValidation = new ClientSideValidationRule<IComparable, IComparable>(EqualToValidationName,
-                                                                          "Value must be equal to " + value.ToString() + ".",
+                                                                          "Value must be equal to " + value?.ToString() + ".",
                                                                           propname,
                                                                           CommonPropRuleHandlers.EqualToHandler);
 

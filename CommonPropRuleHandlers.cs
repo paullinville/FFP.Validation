@@ -59,7 +59,10 @@ namespace FFP.Validations
 
         public static bool LessThanHandler(IPropertyRule<IComparable, IComparable> target, object objectChecked)
         {
-            if ((target.PropertyValue(objectChecked)).CompareTo(target.AllowedValue) >= 0)
+            IComparable val = target.PropertyValue(objectChecked);
+            if (val == null)
+                return true;
+            if (val.CompareTo(target.AllowedValue) >= 0)
                 return true;
             else
                 return false;
@@ -91,7 +94,10 @@ namespace FFP.Validations
 
         public static bool GreaterThanHandler(IPropertyRule<IComparable, IComparable> target, object objectChecked)
         {
-            if (target.PropertyValue(objectChecked).CompareTo(target.AllowedValue) <= 0)
+            IComparable val = target.PropertyValue(objectChecked);
+            if (val == null)
+                return true;
+            if (val.CompareTo(target.AllowedValue) <= 0)
                 return true;
             else
                 return false;
@@ -99,6 +105,9 @@ namespace FFP.Validations
 
         public static bool LessThanOrEqualToHandler(IPropertyRule<IComparable, IComparable> target, object objectChecked)
         {
+            IComparable val = target.PropertyValue(objectChecked);
+            if (val == null)
+                return true;
             if (target.PropertyValue(objectChecked).CompareTo(target.AllowedValue) <= 0)
                 return false;
             else
@@ -123,6 +132,9 @@ namespace FFP.Validations
 
         public static bool GreaterThanOrEqualToHandler(IPropertyRule<IComparable, IComparable> target, object objectChecked)
         {
+            IComparable val = target.PropertyValue(objectChecked);
+            if (val == null)
+                return true;
             if (target.PropertyValue(objectChecked).CompareTo(target.AllowedValue) >= 0)
                 return false;
             else
@@ -144,7 +156,7 @@ namespace FFP.Validations
             if (target.PropertyValue(objectChecked) == null)
                 return false;
 
-            if (target.PropertyValue(objectChecked).Length > target.AllowedValue)
+            if (target.PropertyValue(objectChecked).Trim().Length > target.AllowedValue)
                 return true;
             else
                 return false;
@@ -155,7 +167,7 @@ namespace FFP.Validations
             if (target.PropertyValue(objectChecked) == null)
                 return true;
 
-            if (target.PropertyValue(objectChecked).Length < target.AllowedValue)
+            if (target.PropertyValue(objectChecked).Trim().Length < target.AllowedValue)
                 return true;
             else
                 return false;

@@ -53,9 +53,10 @@ namespace FFP.Validations
             {
                 PropertyInfo propInfo = ItemValidated.GetType().GetProperty(PropertyName);
 
-                // Use the instance to call the method without arguments
-                ;
-                return (t)propInfo.GetMethod.Invoke(ItemValidated, null);
+                object result = propInfo.GetMethod.Invoke(ItemValidated, null);
+                if (result == null)
+                    return default(t);
+                return (t)result;
             }
             else
             {
