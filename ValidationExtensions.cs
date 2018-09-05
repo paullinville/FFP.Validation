@@ -76,17 +76,6 @@ namespace Validations
                 return false;
             }
         }
-
-        //public static BrokenValidationRule CheckValidation(this ITypeValidation Validations, IValidatedItem bo, string ValidationName, string propName)
-        //{
-        //    IValidationRule val = GetValidation(Validations, ValidationName, propName);
-        //    return CheckValidation(val, bo);
-        //}
-
-        //public static BrokenValidationRule CheckValidation(this ITypeValidation Validations, IValidatedItem bo, string ValidationName)
-        //{
-        //    return CheckValidation(Validations, bo, ValidationName, "");
-        //}
     }
 }
 

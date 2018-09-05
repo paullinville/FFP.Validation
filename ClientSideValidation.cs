@@ -1,14 +1,10 @@
-﻿using FFP.BO.Interfaces;
-using FFP.CoreUtilities;
+﻿using FFP.CoreUtilities;
 using System;
 
 namespace Validations
 {
     public class ClientSideValidationRule<t, u> : PropertyValidationRule<t, u>, IClientValidation
     {
-        //public ClientSideValidationRule(string ruleName, string Description, PropValidationHandler<t, u> handler) : base(ruleName, Description, handler)
-        //{
-        //}
 
         public ClientSideValidationRule(string ruleName, string Description, string PropName, PropValidationDelegate<t, u> handler) : base(ruleName, Description, PropName, handler)
         {

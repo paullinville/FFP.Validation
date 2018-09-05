@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Validations
+﻿namespace Validations
 {
 
     public class ValidationRule<t> : IRule

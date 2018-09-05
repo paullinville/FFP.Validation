@@ -1,5 +1,4 @@
-﻿using FFP.BO.Interfaces;
-using FFP.CoreUtilities;
+﻿using FFP.CoreUtilities;
 using System;
 
 namespace Validations
