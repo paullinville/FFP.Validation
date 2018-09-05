@@ -1,5 +1,5 @@
-using FFP.Validations;
 using System;
+using Validations;
 using Xunit;
 
 namespace ValidationRules_Tests

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using FFP.Validations;
 
-namespace FFP.Validations
+namespace Validations
 {
     public class ValidationPackages
     {

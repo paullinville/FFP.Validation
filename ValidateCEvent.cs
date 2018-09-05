@@ -1,5 +1,5 @@
 ﻿using Observer;
-namespace FFP.Validations
+namespace Validations
 {
     public class ValidateCEvent : ChannelEvent
     {

@@ -2,7 +2,7 @@
 using FFP.CoreUtilities;
 using System;
 
-namespace FFP.Validations
+namespace Validations
 {
     public class ClientSideValidationRule<t, u> : PropertyValidationRule<t, u>, IClientValidation
     {

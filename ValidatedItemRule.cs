@@ -1,6 +1,6 @@
 ﻿using FFP.CoreUtilities;
 
-namespace FFP.Validations
+namespace Validations
 {
     public class ValidatedItemRule : IRule
     {

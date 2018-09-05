@@ -1,5 +1,5 @@
 ﻿
-namespace FFP.Validations
+namespace Validations
 {
     public abstract class BasicDatabaseValidationDictionary : BasicValidationPackage
     {

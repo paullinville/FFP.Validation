@@ -3,7 +3,7 @@ using Microsoft.VisualBasic;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FFP.Validations
+namespace Validations
 {
     public static class ValidationExtensions
     {

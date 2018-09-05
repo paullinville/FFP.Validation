@@ -2,7 +2,7 @@
 using System;
 using System.Reflection;
 
-namespace FFP.Validations
+namespace Validations
 
 
 {

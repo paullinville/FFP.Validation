@@ -2,7 +2,7 @@
 using FFP.CoreUtilities;
 using System;
 
-namespace FFP.Validations
+namespace Validations
 {
     public class CommonPropRuleHandlers
     {
@@ -176,7 +176,7 @@ namespace FFP.Validations
         public static bool IsNumberBroke(IPropertyRule<Object, object> target, object objectChecked)
         {
 
-            return CoreUtilities.Extensions.IsNumeric(target.PropertyValue(objectChecked).ToString()).IsFalse();
+            return Extensions.IsNumeric(target.PropertyValue(objectChecked).ToString()).IsFalse();
         }
 
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FFP.Validations
+namespace Validations
 {
     public class ValueRangeValidationHelper
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FFP.Validations
+namespace Validations
 {
     public class ValidatedBase : List<IRule>, IValidatedItem
     {

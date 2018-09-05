@@ -17,8 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\FFP.CoreUtilities\FFP.CoreUtilities.vbproj" />
-    <ProjectReference Include="..\..\FFP.Interfaces\FFP.Interfaces.csproj" />
-    <ProjectReference Include="..\FFP.Validation.csproj" />
+    <ProjectReference Include="..\..\FFP.Interfaces\Interfaces.csproj" />
+    <ProjectReference Include="..\Validation.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using FFP.CoreUtilities;
 using System;
 
-namespace FFP.Validations
+namespace Validations
 {
     public class BrokenRule : IBrokenRule
     {

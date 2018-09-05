@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FFP.Validations
+namespace Validations
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class ValidationGroupAttribute : Attribute

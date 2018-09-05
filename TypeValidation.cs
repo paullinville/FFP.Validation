@@ -1,7 +1,7 @@
 ﻿using Observer;
 using System;
 using System.Collections.Generic;
-namespace FFP.Validations
+namespace Validations
 {
     public abstract class TypeValidation : IValidation, IPublisher
     {

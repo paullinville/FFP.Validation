@@ -1,7 +1,7 @@
-﻿using FFP.Validations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Validations;
 using Xunit;
 
 namespace ValidationRules_Tests

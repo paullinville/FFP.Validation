@@ -1,4 +1,4 @@
-﻿using FFP.Validations;
+﻿using Validations;
 using System;
 
 namespace ValidationRules_Tests

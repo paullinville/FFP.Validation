@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FFP.Validations
+namespace Validations
 {
     public abstract class BasicValidationPackage : IValidationPackage
     {

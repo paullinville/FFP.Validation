@@ -1,4 +1,4 @@
-﻿namespace FFP.Validations
+﻿namespace Validations
 {
     public abstract class TypedRuleBase<t> : ITypeRule<t>
     {

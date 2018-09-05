@@ -4,6 +4,7 @@
     <RootNamespace></RootNamespace>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <LangVersion>7.2</LangVersion>
+    <AssemblyName>Validation</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -50,7 +51,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FFP.CoreUtilities\FFP.CoreUtilities.vbproj" />
-    <ProjectReference Include="..\FFP.Interfaces\FFP.Interfaces.csproj" />
+    <ProjectReference Include="..\FFP.Interfaces\Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
