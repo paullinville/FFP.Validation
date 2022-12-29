@@ -30,7 +30,21 @@ public class PasswordHash
         var testHash = GetPbkdf2Bytes(password, salt, iterations, hash.Length);
         return SlowEquals(hash, testHash);
     }
+   public string CreateSHA512(string strData)
+    {
+        var message = Encoding.UTF8.GetBytes(strData);
+        using (var alg = SHA512.Create())
+        {
+            string hex = "";
 
+            var hashValue = alg.ComputeHash(message);
+            foreach (byte x in hashValue)
+            {
+                hex += String.Format("{0:x2}", x);
+            }
+            return hex;
+        }
+    }
     private static bool SlowEquals(byte[] a, byte[] b)
     {
         var diff = (uint)a.Length ^ (uint)b.Length;
